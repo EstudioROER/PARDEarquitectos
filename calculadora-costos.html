@@ -505,17 +505,24 @@
 
                 // Capturamos datos del form + datos de la calculadora
                 const formData = new FormData(budgetForm);
+                // Obtenemos los labels legibles del estándar y factor
+                const estandarLabels = { economic: 'Económico (22 UF/m²)', standard: 'Estándar (35 UF/m²)', premium: 'Premium (55 UF/m²)', luxury: 'Luxury (75+ UF/m²)' };
+                const factorLabels = { '1': 'Base (Central)', '1.15': 'Zona Sur (+15%)', '1.2': 'Terreno Pendiente (+20%)', '0.95': 'Modelo Repetitivo (-5%)' };
+
+                // Enviamos todo PLANO (sin objetos anidados) para facilitar el mapeo en Make.com
                 const leadData = {
-                    type: 'calculator_lead',
+                    tipo: 'Lead SmartBudget',
                     nombre: formData.get('nombre'),
                     email: formData.get('email'),
-                    calculo: {
-                        m2: currentArea,
-                        estandar: currentStandard,
-                        total_uf: document.getElementById('total-uf').innerText,
-                        total_clp: document.getElementById('total-clp').innerText + ' Millones',
-                        factor: factorExtra
-                    }
+                    superficie_m2: currentArea + ' m²',
+                    estandar: estandarLabels[currentStandard] || currentStandard,
+                    factor_region: factorLabels[String(factorExtra)] || factorExtra,
+                    total_uf: document.getElementById('total-uf').innerText + ' UF',
+                    total_clp: document.getElementById('total-clp').innerText + ' Millones CLP',
+                    obra_gruesa_uf: document.getElementById('og-uf').innerText,
+                    terminaciones_uf: document.getElementById('term-uf').innerText,
+                    instalaciones_uf: document.getElementById('inst-uf').innerText,
+                    fees_uf: document.getElementById('fees-uf').innerText
                 };
 
                 // Enviamos — siempre muestra éxito al usuario
