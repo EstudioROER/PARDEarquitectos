@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursos de Publicidad | PARDE Arquitectos</title>
+    <!-- Usamos un CDN temporal de Tailwind para maquetar rápido esta guía interna -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Inter:wght@400;500&display=swap"
+        rel="stylesheet">
+    <!-- html2canvas para exportar flayers -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { brandGray: '#3f3e3e', brandTerra: '#d48259' },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Outfit', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .ad-mockup {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .ad-header {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .ad-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #3f3e3e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+        }
+
+        .ad-image {
+            width: 100%;
+            height: 250px;
+            background-color: #e5e7eb;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .ad-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .ad-image::after {
+            content: 'Publicidad';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .ad-content {
+            padding: 16px;
+        }
+
+        .ad-cta {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background: #f3f4f6;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            margin-top: 12px;
+            font-size: 14px;
+            color: #374151;
+        }
+
+        .ad-cta:hover {
+            background: #e5e7eb;
+        }
+
+        .ad-copy {
+            font-size: 14px;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .copy-tag {
+            color: #2563eb;
+            cursor: pointer;
+        }
+
+        /* Botón de descarga */
+        .download-btn {
+            background: #f3f4f6;
+            color: #4b5563;
+            border: 1px solid #e5e7eb;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+            transition: all 0.2s;
+            cursor: pointer;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .download-btn:hover {
+            background: #3f3e3e;
+            color: white;
+            border-color: #3f3e3e;
+        }
+
+        .download-btn svg {
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+
+<body class="pb-20">
+
+    <!-- Header Interno -->
+    <header class="bg-brandGray text-white py-12 px-6 shadow-md">
+        <div class="max-w-5xl mx-auto flex items-center justify-between">
+            <div>
+                <h1 class="text-4xl font-display font-bold mb-2">Guía de Publicidad y Campañas</h1>
+                <p class="text-gray-300 text-lg">Materiales, directrices y mockups para lanzar PARDE Arquitectos.</p>
+            </div>
+            <!-- Logo PARDE en SVG -->
+            <div class="w-32 h-auto">
+                <img src="logo.svg" alt="PARDE Arquitectos" class="w-full h-auto filter brightness-0 invert">
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 mt-12 grid grid-cols-1 lg:grid-cols-3 gap-10">
+
+        <!-- Columna Izquierda: Estrategia y Reglas -->
+        <div class="lg:col-span-1 space-y-8">
+            <section class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <h2 class="text-2xl font-display font-bold text-brandGray mb-4">1. El "Embudo" (Funnel)</h2>
+                <ul class="space-y-4 text-sm text-gray-600">
+                    <li class="flex items-start"><span
+                            class="bg-brandTerra text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0 font-bold">1</span>
+                        Anuncio visual (Impacta)</li>
+                    <li class="flex items-start"><span
+                            class="bg-brandTerra text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0 font-bold">2</span>
+                        Clic directo a <strong>landing-campana.html</strong></li>
+                    <li class="flex items-start"><span
+                            class="bg-brandTerra text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0 font-bold">3</span>
+                        Cliente lee dolor/solución (Sin fugas).</li>
+                    <li class="flex items-start"><span
+                            class="bg-brandTerra text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0 font-bold">4</span>
+                        Clic a WhatsApp = <strong>Lead Calificado</strong></li>
+                </ul>
+            </section>
+
+            <section class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <h2 class="text-2xl font-display font-bold text-brandGray mb-4">2. Reglas Visuales</h2>
+                <div class="space-y-4 text-sm text-gray-600">
+                    <p><strong>Lo que SÍ funciona:</strong></p>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Renders fotorealistas con buena iluminación (Atardecer/Amanecer).</li>
+                        <li>El logo de PARDE siempre discreto en una esquina.</li>
+                        <li>Fotos de obra limpias, mostrando orden y control.</li>
+                        <li>Planos técnicos superpuestos con imágenes reales.</li>
+                    </ul>
+                    <p class="mt-4"><strong>Lo que NO funciona:</strong></p>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Mucho texto sobre la imagen (Meta Ads penaliza esto).</li>
+                        <li>Imágenes genéricas de stock donde se ven personas sonriendo frente a una mesa de trabajo.
+                            Cero creíble.</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <!-- Columna Derecha: Ejemplares (Mockups) -->
+        <div class="lg:col-span-2 space-y-12">
+
+            <!-- META ADS (Instagram / Facebook) -->
+            <div>
+                <h2
+                    class="text-3xl font-display font-bold text-brandGray border-b-2 border-brandTerra inline-block pb-2 mb-6">
+                    Meta Ads (Instagram / Facebook)</h2>
+                <p class="text-gray-600 mb-6">Objetivo: Generar deseo visual y atacar el problema del descontrol del
+                    presupuesto de obra. Ideal para Inversores privados o familias buscando su primera casa a medida.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Ejemplar 1 -->
+                    <div class="ad-mockup">
+                        <div class="ad-header">
+                            <div class="ad-avatar">P</div>
+                            <div class="ml-3">
+                                <p class="text-sm font-bold text-gray-900 leading-tight">PARDE Arquitectos</p>
+                                <p class="text-xs text-gray-500">Publicidad</p>
+                            </div>
+                        </div>
+                        <div class="ad-copy px-4 pt-3 text-sm pb-1">
+                            ¿Construir o remodelar sin que el presupuesto se triplique a mitad de camino? ✋<br><br>
+                            En PARDE diseñamos arquitectura de alto impacto con control absoluto de UF/m². Entregamos
+                            proyectos rentables, atemporales y sin sorpresas.
+                        </div>
+                        <div class="ad-image">
+                            <!-- Placeholder visual -->
+                            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                alt="Casa moderna">
+                        </div>
+                        <div class="ad-content bg-gray-50 border-t border-gray-200 flex justify-between items-center">
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase font-bold tracking-wider">pardearquitectos.cl
+                                </p>
+                                <p class="text-sm font-bold mt-1 text-gray-900">Agenda tu viabilidad gratis</p>
+                            </div>
+                            <a href="#" class="bg-gray-200 text-gray-800 px-4 py-2 rounded font-bold text-sm">Más
+                                info</a>
+                        </div>
+                    </div>
+
+                    <!-- Ejemplar 2 (Carrusel) -->
+                    <div class="ad-mockup">
+                        <div class="ad-header">
+                            <div class="ad-avatar">P</div>
+                            <div class="ml-3">
+                                <p class="text-sm font-bold text-gray-900 leading-tight">PARDE Arquitectos</p>
+                                <p class="text-xs text-gray-500">Publicidad</p>
+                            </div>
+                        </div>
+                        <div class="ad-image" style="background: #1f2937;">
+                            <div class="text-center px-6">
+                                <h3 class="text-white text-2xl font-bold font-display mb-2">De Terreno a <span
+                                        class="text-brandTerra">Inversión Rentable</span>.</h3>
+                            </div>
+                        </div>
+                        <div class="ad-content bg-gray-50 border-t border-gray-200">
+                            <p class="text-sm text-gray-800 font-bold mb-1">Nuestro proceso en 3 pasos</p>
+                            <p class="text-xs text-gray-500 mb-3">Evaluación > Diseño RF > Ejecución Llave en mano.</p>
+                            <a href="#"
+                                class="w-full block text-center bg-brandGray text-white font-bold py-2 rounded shadow-sm hover:bg-black">Postular
+                                Proyecto</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LINKEDIN ADS -->
+            <div class="pt-8">
+                <h2
+                    class="text-3xl font-display font-bold text-brandGray border-b-2 border-blue-600 inline-block pb-2 mb-6">
+                    LinkedIn Ads</h2>
+                <p class="text-gray-600 mb-6">Objetivo: B2B. Captar fondos inmobiliarios, dueños de terrenos comerciales
+                    (strip centers) y desarrolladores boutique. Tono más técnico, hablando de m2, rentabilidad y
+                    tasaciones.</p>
+
+                <div class="ad-mockup" style="max-width: 100%;">
+                    <div class="ad-header">
+                        <div class="ad-avatar" style="border-radius: 4px;">P</div>
+                        <div class="ml-3">
+                            <p class="text-sm font-bold text-gray-900 leading-tight">PARDE Arquitectos <span
+                                    class="text-gray-400 font-normal">Promocionado</span></p>
+                            <p class="text-xs text-gray-500">Arquitectura Comercial e Inmobiliaria</p>
+                        </div>
+                    </div>
+                    <div class="ad-copy px-4 pt-4 text-sm pb-2">
+                        Un mal diseño puede devaluar tu terreno hasta un 30% en la etapa de tasación bancaria.
+                        📉<br><br>
+                        En <span class="font-bold">PARDE Arquitectos</span>, cruzamos diseño ganador con ingeniería de
+                        costos. Logramos masterplans que aprueban rápido, se rentan caro y se construyen dentro del
+                        CAPEX estipulado. <br><br>
+                        Si tienes un terreno para desarrollo, hablemos de su máxima "cabida". 👇
+                    </div>
+                    <div class="ad-image" style="height: 350px;">
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                            alt="Edificio comercial">
+                        <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black to-transparent p-6">
+                            <p class="text-white font-bold text-xl uppercase">Maximización de Activos Inmobiliarios</p>
+                        </div>
+                    </div>
+                    <div class="flex border-t border-gray-200">
+                        <button
+                            class="flex-1 py-3 text-center text-gray-600 font-bold hover:bg-gray-50 flex justify-center items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                            Agendar Call
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GOOGLE SEARCH -->
+            <div class="pt-8">
+                <h2
+                    class="text-3xl font-display font-bold text-brandGray border-b-2 border-green-600 inline-block pb-2 mb-6">
+                    Google Ads (Búsqueda)</h2>
+                <p class="text-gray-600 mb-6">Captura la intención directa. El cliente ya está buscando a alguien en el
+                    buscador. Debe sonar a la solución perfecta inmediata.</p>
+
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                    <div class="mb-4 pb-4 border-b border-gray-100">
+                        <p class="text-xs font-bold text-gray-900 flex items-center mb-1">
+                            <span class="font-bold mr-2 text-black text-sm">Patrocinado</span>
+                            <span class="text-green-700">https://www.pardearquitectos.com</span>
+                            </button>
+                        <h3 class="text-xl text-blue-800 font-medium hover:underline cursor-pointer">Estudio de
+                            Arquitectura | Diseño de Casas y Remodelaciones</h3>
+                        <p class="text-sm text-gray-700 mt-1">Transformamos tu inversión en el proyecto más rentable de
+                            la zona. Control estricto de costos (UF/m²), arquitectura premium y gestión de obra
+                            integral. Solicita Viabilidad Hoy.</p>
+                    </div>
+
+                    <div>
+                        <p class="text-xs font-bold text-gray-900 flex items-center mb-1">
+                            <span class="font-bold mr-2 text-black text-sm">Patrocinado</span>
+                            <span class="text-green-700">https://www.pardearquitectos.com/inversores</span>
+                        </p>
+                        <h3 class="text-xl text-blue-800 font-medium hover:underline cursor-pointer">Arquitectura para
+                            Inversionistas | Máxima Rentabilidad</h3>
+                        <p class="text-sm text-gray-700 mt-1">Saca el máximo provecho a tu terreno. Entregamos proyectos
+                            "llave en mano" con alto estándar constructivo y foco en el ROI. Agenda una sesión técnica
+                            de 15 min sin costo.</p>
+                    </div>
+                </div>
+
+                <!-- Keywords -->
+                <div class="mt-6">
+                    <h4 class="font-bold text-gray-800 mb-2">Palabras Clave Sugeridas:</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded text-sm">estudio de arquitectura
+                            santiago</span>
+                        <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded text-sm">diseño y construcción de
+                            casas</span>
+                        <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded text-sm">arquitectos especialistas en
+                            remodelaciones</span>
+                        <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded text-sm">proyectos inmobiliarios
+                            arquitectura</span>
+                        <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded text-sm">rentabilidad de
+                            terrenos</span>
+                        <h4 class="text-brandGray font-display font-bold text-xl leading-tight">Proyectos "Llave en
+                            Mano"</h4>
+                        <p class="text-gray-500 text-xs mt-2 line-clamp-2">Nos hacemos cargo desde los primeros bocetos
+                            y permisos hasta la última terminación en obra, cuidando tu UF/m2.</p>
+                    </div>
+
+                    <div class="flex justify-between items-end">
+                        <!-- Mini Logo Info -->
+                        <div class="w-16">
+                            <img src="logo.svg" alt="PARDE" class="w-full h-auto">
+                        </div>
+                        <span
+                            class="bg-brandGray text-white text-[10px] uppercase font-bold px-3 py-1 rounded">Contáctanos</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Columna Completa Abajo: FLAYERS Y FORMATOS GRÁFICOS -->
+        <div class="lg:col-span-3 mt-16 pt-12 border-t border-gray-200" id="flyers">
+            <h2 class="text-4xl font-display font-bold text-brandGray mb-4">3. Flayers & Formatos Gráficos (Editables)
+            </h2>
+            <p class="text-gray-600 mb-2 text-lg">Aquí tienes el material gráfico estructurado en los formatos
+                esenciales. <strong class="text-brandTerra">Haz clic en cualquier texto dentro de las plantillas para
+                    editarlo directamente antes de tomar la captura de pantalla.</strong></p>
+            <p class="text-gray-500 mb-10 text-sm italic">Nota: Las imágenes de fondo y los Códigos QR son
+                representativos. Puedes tomar capturas de pantalla de estos diseños, o enviarlos como referencia a un
+                diseñador.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 items-start">
+
+                <!-- FORMATO 1: INSTAGRAM STORY -->
+                <div>
+                    <h3 class="text-xl font-bold font-display mb-2 text-gray-800">1. Historia (Minimalista)</h3>
+                    <p class="text-sm text-gray-500 mb-4">Ideal para Instagram Stories o Reels cortos.</p>
+
+                    <div id="flyer-1"
+                        class="relative mx-auto bg-gray-900 overflow-hidden shadow-2xl transition hover:shadow-brandTerra/20"
+                        style="width: 300px; height: 533px; border-radius: 16px;">
+                        <div class="absolute inset-0 bg-cover bg-center opacity-40"
+                            style="background-image: url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');">
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-brandGray/80 to-brandGray">
+                        </div>
+
+                        <div
+                            class="relative z-10 h-full flex flex-col justify-between p-6 outline-none uppercase-labels">
+                            <div class="w-20 pt-2">
+                                <img src="logo.svg" alt="PARDE Arquitectos"
+                                    class="w-full h-auto filter brightness-0 invert">
+                            </div>
+
+                            <div class="text-center mt-10">
+                                <p contenteditable="true" spellcheck="false"
+                                    class="text-brandTerra font-bold tracking-widest text-xs uppercase mb-3 outline-none hover:bg-white/10 p-1 rounded transition">
+                                    Estudio de Arquitectura</p>
+                                <h4 contenteditable="true" spellcheck="false"
+                                    class="text-white font-display font-bold text-3xl leading-tight outline-none hover:bg-white/10 p-1 rounded transition">
+                                    DISEÑO Y <br> RENTABILIDAD</h4>
+                                <div class="w-12 h-1 bg-brandTerra mx-auto mt-4 mb-4"></div>
+                                <p contenteditable="true" spellcheck="false"
+                                    class="text-gray-300 text-sm outline-none hover:bg-white/10 p-1 rounded transition">
+                                    Transformamos terrenos en desarrollos rentables con estricto control de presupuesto.
+                                </p>
+                            </div>
+
+                            <div contenteditable="true" spellcheck="false"
+                                class="bg-brandTerra text-white text-center py-3 rounded-full font-bold text-sm shadow-lg mb-4 outline-none hover:bg-opacity-90">
+                                Agenda Asesoría Hoy ></div>
+                        </div>
+                    </div>
+                    <button onclick="downloadFlyer('flyer-1', 'parde-story-minimal.png')" class="download-btn">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                        </svg>
+                        Descargar Historia
+                    </button>
+                </div>
+
+                <!-- FORMATO 2: POST FEED -->
+                <div>
+                    <h3 class="text-xl font-bold font-display mb-2 text-gray-800">2. Post Feed (Educativo)</h3>
+                    <p class="text-sm text-gray-500 mb-4">Perfecto para Instagram Feed o LinkedIn.</p>
+
+                    <div id="flyer-2"
+                        class="relative mx-auto bg-white overflow-hidden shadow-2xl border border-gray-100"
+                        style="width: 300px; height: 300px;">
+                        <div class="h-1/2 w-full bg-cover bg-center"
+                            style="background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                        </div>
+
+                        <div class="h-1/2 w-full p-5 flex flex-col justify-between">
+                            <div>
+                                <h4 contenteditable="true" spellcheck="false"
+                                    class="text-brandGray font-display font-bold text-xl leading-tight outline-none hover:bg-gray-100 p-1 -m-1 rounded">
+                                    Proyectos "Llave en Mano"</h4>
+                                <p contenteditable="true" spellcheck="false"
+                                    class="text-gray-500 text-xs mt-2 outline-none hover:bg-gray-100 p-1 -m-1 rounded leading-snug">
+                                    Nos hacemos cargo desde los primeros bocetos y permisos hasta la última terminación
+                                    en obra, cuidando tu UF/m2.</p>
+                            </div>
+
+                            <div class="flex justify-between items-end">
+                                <div class="w-16">
+                                    <img src="logo.svg" alt="PARDE" class="w-full h-auto">
+                                </div>
+                                <span contenteditable="true" spellcheck="false"
+                                    class="bg-brandGray text-white text-[10px] uppercase font-bold px-3 py-1 rounded outline-none">Contáctanos</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="downloadFlyer('flyer-2', 'parde-post-feed.png')" class="download-btn">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                        </svg>
+                        Descargar Post
+                    </button>
+                </div>
+
+                <!-- FORMATO 3: A4 DOSSIER -->
+                <div>
+                    <h3 class="text-xl font-bold font-display mb-2 text-gray-800">3. A4 Corporativo (PDF/Print)</h3>
+                    <p class="text-sm text-gray-500 mb-4">Estilo pulcro y formal para B2B o entrega física.</p>
+
+                    <div id="flyer-3"
+                        class="relative mx-auto bg-gray-50 overflow-hidden shadow-2xl border-2 border-brandTerra"
+                        style="width: 280px; height: 396px;">
+                        <div class="bg-brandTerra h-3 w-full"></div>
+
+                        <div class="p-6 h-full flex flex-col relative">
+                            <div class="w-20 mx-auto mt-2 mb-4">
+                                <img src="logo.svg" alt="PARDE Arquitectos" class="w-full h-auto">
+                            </div>
+
+                            <h2 contenteditable="true" spellcheck="false"
+                                class="text-brandGray font-display font-bold text-center text-[19px] mb-3 leading-tight outline-none hover:bg-gray-200 p-1 -m-1 rounded">
+                                ARQUITECTURA DE <br>ALTO RENDIMIENTO</h2>
+
+                            <ul class="text-[11px] text-gray-700 space-y-2 mt-4 px-2 font-medium">
+                                <li class="flex items-center"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brandTerra mr-2 flex-shrink-0"></span><span
+                                        contenteditable="true" spellcheck="false"
+                                        class="outline-none hover:bg-gray-200 block w-full">Estudios de cabida y
+                                        Viabilidad</span></li>
+                                <li class="flex items-center"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brandTerra mr-2 flex-shrink-0"></span><span
+                                        contenteditable="true" spellcheck="false"
+                                        class="outline-none hover:bg-gray-200 block w-full">Anteproyecto y
+                                        Tramitación</span></li>
+                                <li class="flex items-center"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brandTerra mr-2 flex-shrink-0"></span><span
+                                        contenteditable="true" spellcheck="false"
+                                        class="outline-none hover:bg-gray-200 block w-full">Arquitectura Comercial e
+                                        Inmobiliaria</span></li>
+                                <li class="flex items-center"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-brandTerra mr-2 flex-shrink-0"></span><span
+                                        contenteditable="true" spellcheck="false"
+                                        class="outline-none hover:bg-gray-200 block w-full">Control Presupuestario en
+                                        Etapa 0</span></li>
+                            </ul>
+
+                            <div
+                                class="absolute bottom-6 left-0 right-0 px-6 text-center border-t border-gray-200 pt-3 flex flex-col items-center">
+                                <p contenteditable="true" spellcheck="false"
+                                    class="text-brandTerra font-bold text-sm mb-1 outline-none hover:bg-gray-200 px-1">
+                                    +56 9 XXXX XXXX</p>
+                                <p contenteditable="true" spellcheck="false"
+                                    class="text-brandGray text-[10px] outline-none hover:bg-gray-200 px-1">
+                                    www.pardearquitectos.com</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="downloadFlyer('flyer-3', 'parde-a4-corporativo.png')" class="download-btn">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                        </svg>
+                        Descargar A4
+                    </button>
+                </div>
+
+                <!-- FORMATO 4: STORY CON CÓDIGO QR -->
+                <div>
+                    <h3 class="text-xl font-bold font-display mb-2 text-gray-800">4. Historia con QR</h3>
+                    <p class="text-sm text-gray-500 mb-4">Perfecto para impresos en obra, revistas o vallas
+                        publicitarias donde escanean el código.</p>
+
+                    <div id="flyer-4"
+                        class="relative mx-auto bg-gray-100 overflow-hidden shadow-2xl border border-gray-200 transition hover:shadow-brandTerra/20"
+                        style="width: 300px; height: 533px; border-radius: 16px;">
+
+                        <div class="h-1/2 w-full bg-cover bg-center"
+                            style="background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                        </div>
+                        <div class="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-t from-gray-100 to-transparent">
+                        </div>
+
+                        <div
+                            class="relative z-10 -mt-8 flex flex-col justify-between p-6 h-1/2 text-center bg-gray-100">
+
+                            <h4 contenteditable="true" spellcheck="false"
+                                class="text-brandGray font-display font-bold text-2xl leading-tight outline-none hover:bg-gray-200 p-1 -m-1 rounded">
+                                Haz Que Tu Proyecto <span class="text-brandTerra">Destaque</span></h4>
+
+                            <div
+                                class="mx-auto bg-white p-2 rounded-lg shadow-sm w-28 h-28 flex items-center justify-center my-2 group relative cursor-pointer">
+                                <!-- Placeholder QR Visual -->
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                    class="w-full h-full text-brandGray opacity-80">
+                                    <path fill-rule="evenodd"
+                                        d="M3 3h6v6H3V3zm2 2v2h2V5H5zm8-2h6v6h-6V3zm2 2v2h2V5h-2zM3 13h6v6H3v-6zm2 2v2h2v-2H5zm13-2h-3v2h3v-2zm-3 4h3v2h-3v-2zm-2-4h-2v6h2v-6zm-2 0h-2v2h2v-2zm0 4h-2v2h2v-2z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                <div
+                                    class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition flex items-center justify-center rounded-lg">
+                                    <span class="text-white text-[10px] font-bold">Pega tu QR acá</span>
+                                </div>
+                            </div>
+
+                            <p contenteditable="true" spellcheck="false"
+                                class="text-gray-500 text-[10px] font-bold uppercase tracking-widest outline-none hover:bg-gray-200 p-1 rounded mt-2">
+                                ESCANEA Y AGENDA</p>
+
+                            <div class="w-16 mx-auto mt-2">
+                                <!-- Logo PARDE -->
+                                <img src="logo.svg" alt="PARDE Arquitectos" class="w-full h-auto drop-shadow-md">
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="downloadFlyer('flyer-4', 'parde-story-qr.png')" class="download-btn">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                        </svg>
+                        Descargar Historia QR
+                    </button>
+                </div>
+
+                <!-- FORMATO 5: POST FEED TEXTO (ALTO IMPACTO B2B) -->
+                <div>
+                    <h3 class="text-xl font-bold font-display mb-2 text-gray-800">5. Post Cuadrado (Texto/Tipográfico)
+                    </h3>
+                    <p class="text-sm text-gray-500 mb-4">Cuando lo que importa es el mensaje sobre la imagen. Muy
+                        efectivo para LinkedIn o Instagram B2B.</p>
+
+                    <div id="flyer-5" class="relative mx-auto bg-brandGray overflow-hidden shadow-2xl"
+                        style="width: 300px; height: 300px;">
+
+                        <div class="p-8 h-full flex flex-col justify-center relative z-10">
+
+                            <p contenteditable="true" spellcheck="false"
+                                class="text-brandTerra text-xs font-bold uppercase tracking-widest mb-4 outline-none hover:bg-white/10 p-1 w-max rounded">
+                                Problema Común</p>
+
+                            <h4 contenteditable="true" spellcheck="false"
+                                class="text-white font-display font-medium text-[22px] leading-snug outline-none hover:bg-white/10 p-1 -m-1 rounded">
+                                "El presupuesto de obra se nos fue de las manos."</h4>
+
+                            <p contenteditable="true" spellcheck="false"
+                                class="text-gray-400 text-sm mt-4 outline-none hover:bg-white/10 p-1 -m-1 rounded">En
+                                PARDE garantizamos control total del CAPEX desde los primeros planos. Diseñamos con la
+                                rentabilidad en mente.</p>
+
+                            <!-- Línea Terracota -->
+                            <div class="absolute bottom-0 left-0 h-2 w-1/3 bg-brandTerra"></div>
+
+                            <div class="absolute bottom-5 right-5 w-16 opacity-30">
+                                <img src="logo.svg" alt="PARDE Arquitectos"
+                                    class="w-full h-auto filter brightness-0 invert opacity-40">
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="downloadFlyer('flyer-5', 'parde-post-texto.png')" class="download-btn">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                        </svg>
+                        Descargar Post Texto
+                    </button>
+                </div>
+
+                <!-- FORMATO 6: A4 HOJA DE DATOS/PRECIOS -->
+                <div>
+                    <h3 class="text-xl font-bold font-display mb-2 text-gray-800">6. A4 / Poster con QR</h3>
+                    <p class="text-sm text-gray-500 mb-4">Para entregar en reuniones físicas, colgar en cerco de obra, o
+                        como "One Pager" informativo.</p>
+
+                    <div id="flyer-6"
+                        class="relative mx-auto bg-white overflow-hidden shadow-2xl outline outline-1 outline-gray-200"
+                        style="width: 280px; height: 396px;">
+
+                        <div class="p-5 flex flex-col h-full">
+                            <!-- Header Horizontal -->
+                            <div class="flex items-center justify-between border-b border-gray-100 pb-3 mb-4">
+                                <div class="w-16">
+                                    <img src="logo.svg" alt="PARDE Arquitectos" class="w-full h-auto">
+                                </div>
+                                <div class="text-right">
+                                    <p contenteditable="true" spellcheck="false"
+                                        class="text-[9px] font-bold text-gray-800 outline-none hover:bg-gray-100">
+                                        ASESORÍA INICIAL (15 MIN)</p>
+                                    <p contenteditable="true" spellcheck="false"
+                                        class="text-[9px] text-brandTerra font-bold outline-none hover:bg-gray-100">
+                                        GRATUITA</p>
+                                </div>
+                            </div>
+
+                            <!-- Contenido Principal -->
+                            <h4 contenteditable="true" spellcheck="false"
+                                class="text-brandGray font-display font-bold text-lg leading-tight mb-2 outline-none hover:bg-gray-100 p-1 -mx-1 rounded">
+                                Evaluación Inmobiliaria & Presupuesto Inicial</h4>
+                            <p contenteditable="true" spellcheck="false"
+                                class="text-[11px] text-gray-500 mb-4 line-clamp-3 outline-none hover:bg-gray-100 p-1 -mx-1 rounded">
+                                Antes de diseñar, evaluamos tu terreno y presupuesto para darte números reales. No
+                                cobramos por decirte si tu idea es viable o no.</p>
+
+                            <!-- Mock Foto -->
+                            <div class="w-full h-24 bg-gray-200 mb-4 rounded bg-cover bg-center"
+                                style="background-image: url('https://images.unsplash.com/photo-1541888086425-d81bb192a2a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                            </div>
+
+                            <!-- QR + Contact -->
+                            <div
+                                class="mt-auto flex justify-between items-center bg-gray-50 p-3 rounded-lg border border-gray-100">
+                                <div>
+                                    <p contenteditable="true" spellcheck="false"
+                                        class="text-xs font-bold text-brandGray outline-none hover:bg-gray-200 p-0.5 rounded">
+                                        ¡Escanéame!</p>
+                                    <p contenteditable="true" spellcheck="false"
+                                        class="text-[10px] text-gray-500 mt-1 mr-2 outline-none hover:bg-gray-200 p-0.5 rounded">
+                                        Apunta tu cámara aquí para agendar un WhatsApp rápido.</p>
+                                </div>
+                                <div
+                                    class="w-16 h-16 bg-white p-1 rounded-lg border border-gray-200 flex-shrink-0 cursor-pointer hover:border-brandTerra transition">
+                                    <img src="logo.svg" alt="PARDE" class="w-full h-auto opacity-20">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Barra Bottom -->
+                        <div class="bg-brandTerra h-1 w-full absolute bottom-0"></div>
+                    </div>
+                    <button onclick="downloadFlyer('flyer-6', 'parde-a4-poster.png')" class="download-btn">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                        </svg>
+                        Descargar Póster
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        async function downloadFlyer(elementId, fileName) {
+            const flyer = document.getElementById(elementId);
+            const downloadBtn = event.currentTarget;
+            const originalBtnText = downloadBtn.innerHTML;
+
+            // Feedback visual de carga
+            downloadBtn.innerHTML = '<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Generando...';
+            downloadBtn.disabled = true;
+
+            // Desactivar temporalmente contenteditable para evitar bordes o cursores en la imagen
+            const editables = flyer.querySelectorAll('[contenteditable="true"]');
+            editables.forEach(el => {
+                el.setAttribute('contenteditable', 'false');
+                el.style.backgroundColor = 'transparent'; // Quitar el fondo gris de hover si existiera
+            });
+
+            try {
+                // Capturar el flayer con html2canvas
+                // Usamos scale: 2 para mejor calidad (Retina)
+                const canvas = await html2canvas(flyer, {
+                    scale: 2,
+                    useCORS: true, // Importante para imágenes externas como Unsplash
+                    backgroundColor: null, // Mantener transparencia si la hay
+                });
+
+                // Crear link de descarga
+                const image = canvas.toDataURL("image/png");
+                const link = document.createElement('a');
+                link.download = fileName;
+                link.href = image;
+                link.click();
+            } catch (err) {
+                console.error("Error al exportar:", err);
+                alert("Hubo un error al generar la imagen. Intenta de nuevo.");
+            } finally {
+                // Restaurar el estado inicial
+                editables.forEach(el => {
+                    el.setAttribute('contenteditable', 'true');
+                    el.style.backgroundColor = '';
+                });
+                downloadBtn.innerHTML = originalBtnText;
+                downloadBtn.disabled = false;
+            }
+        }
+    </script>
+</body>
+
+</html>
