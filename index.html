@@ -197,6 +197,63 @@
         </div>
     </section>
 
+    <!-- COST CONTROL / SMARTBUDGET -->
+    <section class="cost-intelligence" style="padding: 10rem 0; background-color: var(--bg-soft);">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 4rem; align-items: center;">
+                <div class="reveal">
+                    <span class="section-label">SmartBudget™</span>
+                    <h2 style="font-size: 3.5rem; margin-bottom: 2rem; line-height: 1.1;">Controlamos cada UF <br>desde
+                        el inicio.</h2>
+                    <p style="color: var(--text-muted); font-size: 1.2rem; line-height: 1.8; margin-bottom: 2.5rem;">
+                        La incertidumbre financiera es el mayor enemigo de un proyecto. En PARDE, utilizamos nuestra
+                        propia tecnología de auditoría presupuestaria para asegurar que tu inversión sea rentable y
+                        viable.
+                    </p>
+                    <div style="display: flex; gap: 2rem; margin-bottom: 3rem;">
+                        <div>
+                            <strong style="display: block; font-size: 1.5rem; color: var(--brand-terra);">+25%</strong>
+                            <p
+                                style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted);">
+                                Mayor Rentabilidad</p>
+                        </div>
+                        <div style="border-left: 1px solid #DDD; padding-left: 2rem;">
+                            <strong style="display: block; font-size: 1.5rem; color: var(--brand-terra);">0%</strong>
+                            <p
+                                style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted);">
+                                Costo por Sorpresas</p>
+                        </div>
+                    </div>
+                    <a href="calculadora-costos.html" class="cta-button" style="display: inline-block;">Probar Simulador
+                        de Costos</a>
+                </div>
+                <div class="reveal" style="position: relative;">
+                    <div
+                        style="background: white; padding: 2rem; border-radius: 24px; box-shadow: 0 40px 80px rgba(0,0,0,0.1); border: 1px solid rgba(0,0,0,0.05);">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 1.5rem;">
+                            <span
+                                style="font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em;">Auditoría
+                                PARDE</span>
+                            <span style="color: var(--brand-terra); font-weight: 800; font-size: 0.8rem;">ACTIVO</span>
+                        </div>
+                        <div
+                            style="height: 10px; background: #F3F4F6; border-radius: 5px; margin-bottom: 2rem; overflow: hidden;">
+                            <div style="width: 75%; height: 100%; background: var(--brand-terra);"></div>
+                        </div>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+                            "Nuestro algoritmo analiza la viabilidad bancaria y constructiva en tiempo real, ajustando
+                            la materialidad para no exceder tu presupuesto objetivo."
+                        </p>
+                    </div>
+                    <!-- Decoración -->
+                    <div
+                        style="position: absolute; -z-index: 1; top: -20px; right: -20px; width: 100%; height: 100%; border: 2px solid var(--brand-terra); border-radius: 24px; opacity: 0.1;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="contact" id="contacto">
         <div class="container">
             <div class="contact-layout">
@@ -212,13 +269,13 @@
 
                 <form class="contact-form reveal" id="pardeForm">
                     <div class="form-group">
-                        <input type="text" id="name" placeholder="Tu Nombre completo" required>
+                        <input type="text" id="name" name="nombre" placeholder="Tu Nombre completo" required>
                     </div>
                     <div class="form-group">
-                        <input type="email" id="email" placeholder="Tu Email profesional" required>
+                        <input type="email" id="email" name="email" placeholder="Tu Email profesional" required>
                     </div>
                     <div class="form-group">
-                        <select id="project-type" required>
+                        <select id="project-type" name="tipo_proyecto" required>
                             <option value="">Tipo de proyecto...</option>
                             <option value="remodelacion">Remodelación</option>
                             <option value="inversion">Proyecto de Inversión</option>
@@ -227,7 +284,8 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <textarea id="message" rows="4" placeholder="Cuéntanos un poco sobre tu proyecto..."
+                        <textarea id="message" name="mensaje" rows="4"
+                            placeholder="Cuéntanos un poco sobre tu proyecto..."
                             style="width: 100%; padding: 1.25rem; border: 1px solid #D1D5DB; border-radius: 12px; font-family: inherit; font-size: 1rem;"></textarea>
                     </div>
                     <button type="submit" class="submit-btn" id="submitBtn">Enviar Consulta</button>
@@ -257,7 +315,7 @@
     <!-- WhatsApp Multi-Contact Menu -->
     <div class="whatsapp-menu" id="waMenu">
         <div class="whatsapp-options">
-            <a href="https://wa.me/569XXXXXXXX?text=Hola%20Arq.%20Sebasti%C3%A1n%20Mu%C3%B1oz,%20vengo%20de%20la%20web..."
+            <a href="https://wa.me/56950196861?text=Hola%20Arq.%20Sebasti%C3%A1n%20Mu%C3%B1oz,%20vengo%20de%20la%20web..."
                 class="whatsapp-option" target="_blank">
                 <svg class="wa-icon" viewBox="0 0 32 32">
                     <path
@@ -265,7 +323,7 @@
                 </svg>
                 Arq. Sebastián Muñoz
             </a>
-            <a href="https://wa.me/569XXXXXXXX?text=Hola%20Arq.%20Adolfo%20Henr%C3%ADquez,%20vengo%20de%20la%20web..."
+            <a href="https://wa.me/56971089393?text=Hola%20Arq.%20Adolfo%20Henr%C3%ADquez,%20vengo%20de%20la%20web..."
                 class="whatsapp-option" target="_blank">
                 <svg class="wa-icon" viewBox="0 0 32 32">
                     <path

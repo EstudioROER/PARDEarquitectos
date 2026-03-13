@@ -85,3 +85,41 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+/**
+ * LEAD AUTOMATION (Make.com Bridge)
+ * Esta función envía los datos de los formularios y la calculadora a Make.com
+ */
+const MAKE_WEBHOOK_URL = "https://hook.us2.make.com/2vpa2gy1rd8xfiyhjw9w8jby32hcjqnm"; // Lead Automation URL
+
+async function sendLeadToMake(data) {
+    if (!MAKE_WEBHOOK_URL) {
+        console.warn("Make.com Webhook URL no configurada. El lead se guardó localmente en consola:", data);
+        return { success: true, local: true };
+    }
+
+    try {
+        const response = await fetch(MAKE_WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                ...data,
+                timestamp: new Date().toISOString(),
+                source: window.location.pathname
+            })
+        });
+        return { success: response.ok };
+    } catch (error) {
+        console.error("Error enviando lead a Make.com:", error);
+        return { success: false };
+    }
+}
+
+// Update existing pardeForm to send to Make
+document.addEventListener('submit', async (e) => {
+    if (e.target.id === 'pardeForm' || e.target.closest('#pardeForm')) {
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData.entries());
+        await sendLeadToMake({ type: 'contact_form', ...data });
+    }
+});

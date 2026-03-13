@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartBudget PARDE | Control de Costos Arquitectónicos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --brand-terra: #D97706;
+            --brand-gray: #374151;
+            --brand-dark: #111827;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+
+        .font-display {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .glass {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .terra-gradient {
+            background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+        }
+
+        .metric-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(217, 119, 6, 0.3);
+        }
+
+        /* Custom Slider */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+
+        input[type=range]:focus {
+            outline: none;
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 8px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: var(--brand-terra);
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: -8px;
+            box-shadow: 0 0 15px rgba(217, 119, 6, 0.5);
+        }
+
+        .chart-bar {
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes pulse-soft {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        .animate-pulse-soft {
+            animation: pulse-soft 3s infinite;
+        }
+    </style>
+</head>
+
+<body
+    class="min-h-screen bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-blue-900/20 via-slate-900 to-black">
+
+    <nav class="glass sticky top-0 z-50 px-6 py-4 flex justify-between items-center border-b border-white/5">
+        <div class="flex items-center gap-3">
+            <div
+                class="w-10 h-10 terra-gradient rounded-xl flex items-center justify-center shadow-lg shadow-amber-600/20">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z">
+                    </path>
+                </svg>
+            </div>
+            <div>
+                <h1 class="font-display font-bold text-xl tracking-tight">SmartBudget <span
+                        class="text-amber-500 text-xs font-medium uppercase tracking-widest ml-1">Beta</span></h1>
+                <p class="text-[10px] text-slate-400 uppercase tracking-tighter">PARDE ARQUITECTOS - CONTROL DE COSTOS
+                </p>
+            </div>
+        </div>
+        <div class="flex gap-4">
+            <a href="index.html"
+                class="text-xs font-semibold text-slate-400 hover:text-white transition uppercase tracking-widest">Volver
+                al Sitio</a>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-6 py-12 grid lg:grid-cols-3 gap-8">
+
+        <!-- SIDEBAR: CONFIGURACIÓN -->
+        <aside class="flex flex-col gap-6">
+            <div class="glass p-8 rounded-3xl shadow-xl">
+                <h2 class="font-display font-bold text-2xl mb-6 flex items-center gap-2">
+                    <span class="w-2 h-8 bg-amber-500 rounded-full"></span>
+                    Configuración
+                </h2>
+
+                <div class="space-y-8">
+                    <!-- ÁREA -->
+                    <div class="group">
+                        <div class="flex justify-between mb-3">
+                            <label class="text-sm font-semibold text-slate-300 uppercase tracking-wider">Superficie
+                                Total</label>
+                            <span class="text-amber-500 font-bold font-display text-xl"><span id="area-val">120</span>
+                                m²</span>
+                        </div>
+                        <input type="range" id="input-area" min="20" max="1000" value="120" step="1"
+                            class="w-full accent-amber-500">
+                        <div class="flex justify-between mt-2 text-[10px] text-slate-500 font-bold uppercase">
+                            <span>20 m²</span>
+                            <span>1000 m²</span>
+                        </div>
+                    </div>
+
+                    <!-- ESTÁNDAR -->
+                    <div>
+                        <label class="text-sm font-semibold text-slate-300 uppercase tracking-wider block mb-4">Nivel de
+                            Calidad / Terminaciones</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button onclick="setStandard('economic')" id="btn-economic"
+                                class="std-btn glass py-4 rounded-2xl text-xs font-bold transition hover:bg-white/5 border-white/5">
+                                ECONÓMICO<br><span class="text-[10px] font-medium text-slate-400">22 UF/m²</span>
+                            </button>
+                            <button onclick="setStandard('standard')" id="btn-standard"
+                                class="std-btn terra-gradient py-4 rounded-2xl text-xs font-bold text-white shadow-lg shadow-amber-600/20 border-transparent">
+                                ESTÁNDAR<br><span class="text-[10px] font-medium text-amber-100">35 UF/m²</span>
+                            </button>
+                            <button onclick="setStandard('premium')" id="btn-premium"
+                                class="std-btn glass py-4 rounded-2xl text-xs font-bold transition hover:bg-white/5 border-white/5">
+                                PREMIUM<br><span class="text-[10px] font-medium text-slate-400">55 UF/m²</span>
+                            </button>
+                            <button onclick="setStandard('luxury')" id="btn-luxury"
+                                class="std-btn glass py-4 rounded-2xl text-xs font-bold transition hover:bg-white/5 border-white/5">
+                                LUXURY<br><span class="text-[10px] font-medium text-slate-400">75+ UF/m²</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- UBICACIÓN EXTRA -->
+                    <div>
+                        <label class="text-sm font-semibold text-slate-300 uppercase tracking-wider block mb-3">Factor
+                            Región / Complejidad</label>
+                        <select id="factor-extra"
+                            class="w-full bg-slate-800 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 transition">
+                            <option value="1">Base (Central)</option>
+                            <option value="1.15">Zona Sur (+15%)</option>
+                            <option value="1.2">Terreno Pendiente (+20%)</option>
+                            <option value="0.95">Modelo Repetitivo (-5%)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mt-10 p-4 bg-amber-500/10 border border-amber-500/20 rounded-2xl flex items-start gap-3">
+                    <svg class="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <p class="text-[11px] text-slate-300 leading-relaxed">
+                        Los valores en UF son referenciales según mercado 2024-2025 para proyectos unifamiliares en
+                        Chile.
+                    </p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- DASHBOARD PRINCIPAL -->
+        <section class="lg:col-span-2 space-y-8">
+
+            <!-- RESUMEN TOP -->
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass p-8 rounded-3xl relative overflow-hidden group metric-card">
+                    <div
+                        class="absolute -right-4 -top-4 w-24 h-24 bg-amber-500/10 rounded-full blur-3xl transition-transform group-hover:scale-150">
+                    </div>
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Inversión Estimada Total
+                    </p>
+                    <h3 class="text-5xl font-display font-bold text-white"><span id="total-uf">4.200</span> <span
+                            class="text-amber-500 text-2xl">UF</span></h3>
+                    <p class="text-sm text-slate-500 mt-2">≈ <span id="total-clp">155,4</span> Millones CLP</p>
+                </div>
+
+                <div class="glass p-8 rounded-3xl relative overflow-hidden group metric-card">
+                    <div
+                        class="absolute -right-4 -top-4 w-24 h-24 bg-blue-500/10 rounded-full blur-3xl transition-transform group-hover:scale-150">
+                    </div>
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Valor por m²</p>
+                    <h3 class="text-5xl font-display font-bold text-white"><span id="val-m2">35</span> <span
+                            class="text-blue-500 text-2xl">UF/m²</span></h3>
+                    <p class="text-sm text-slate-500 mt-2">Incluye Costos Directos e Indirectos</p>
+                </div>
+            </div>
+
+            <!-- DESGLOSE DE COSTOS (CHART) -->
+            <div class="glass p-8 md:p-10 rounded-3xl shadow-2xl border-white/5">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
+                    <h2 class="font-display font-bold text-2xl flex items-center gap-2">
+                        <span class="w-2 h-8 bg-blue-500 rounded-full"></span>
+                        Desglose de Auditoría (CAPEX)
+                    </h2>
+                    <div class="flex gap-2">
+                        <span
+                            class="px-3 py-1 bg-white/5 rounded-full text-[10px] font-bold text-slate-400 uppercase tracking-wider">Proyecto:
+                            Comercial Inmobiliario</span>
+                    </div>
+                </div>
+
+                <div class="space-y-10">
+                    <!-- OBRA GRUESA -->
+                    <div class="group">
+                        <div class="flex justify-between items-end mb-3">
+                            <div>
+                                <h4 class="text-sm font-bold text-slate-200 uppercase tracking-wide">Obra Gruesa &
+                                    Estructura</h4>
+                                <p class="text-[10px] text-slate-500 mt-0.5">Fundaciones, Muros, Losas, Techo</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-lg font-bold font-display text-white" id="og-uf">1.680 UF</span>
+                                <span class="block text-[10px] text-amber-500 font-bold uppercase">40% del total</span>
+                            </div>
+                        </div>
+                        <div
+                            class="h-4 w-full bg-white/5 rounded-full overflow-hidden blur-[1px] group-hover:blur-0 transition">
+                            <div id="og-bar" class="terra-gradient h-full chart-bar" style="width: 40%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- TERMINACIONES -->
+                    <div class="group">
+                        <div class="flex justify-between items-end mb-3">
+                            <div>
+                                <h4 class="text-sm font-bold text-slate-200 uppercase tracking-wide">Terminaciones &
+                                    Fachadas</h4>
+                                <p class="text-[10px] text-slate-500 mt-0.5">Pisos, Baños, Ventanas, Revestimientos</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-lg font-bold font-display text-white" id="term-uf">1.470 UF</span>
+                                <span class="block text-[10px] text-blue-400 font-bold uppercase">35% del total</span>
+                            </div>
+                        </div>
+                        <div
+                            class="h-4 w-full bg-white/5 rounded-full overflow-hidden blur-[1px] group-hover:blur-0 transition">
+                            <div id="term-bar" class="bg-blue-600 h-full chart-bar" style="width: 35%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- INSTALACIONES -->
+                    <div class="group">
+                        <div class="flex justify-between items-end mb-3">
+                            <div>
+                                <h4 class="text-sm font-bold text-slate-200 uppercase tracking-wide">Instalaciones &
+                                    Redes</h4>
+                                <p class="text-[10px] text-slate-500 mt-0.5">Eléctrica, Gas, Agua, Climatización</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-lg font-bold font-display text-white" id="inst-uf">630 UF</span>
+                                <span class="block text-[10px] text-emerald-400 font-bold uppercase">15% del
+                                    total</span>
+                            </div>
+                        </div>
+                        <div
+                            class="h-4 w-full bg-white/5 rounded-full overflow-hidden blur-[1px] group-hover:blur-0 transition">
+                            <div id="inst-bar" class="bg-emerald-500 h-full chart-bar" style="width: 15%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- GASTOS GENERALES / FEES -->
+                    <div class="group">
+                        <div class="flex justify-between items-end mb-3">
+                            <div>
+                                <h4 class="text-sm font-bold text-slate-200 uppercase tracking-wide">Gastos Indirectos &
+                                    Fees</h4>
+                                <p class="text-[10px] text-slate-500 mt-0.5">Permisos, Arquitectura, Gestión</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-lg font-bold font-display text-white" id="fees-uf">420 UF</span>
+                                <span class="block text-[10px] text-slate-400 font-bold uppercase">10% del total</span>
+                            </div>
+                        </div>
+                        <div
+                            class="h-4 w-full bg-white/5 rounded-full overflow-hidden blur-[1px] group-hover:blur-0 transition">
+                            <div id="fees-bar" class="bg-slate-500 h-full chart-bar" style="width: 10%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FORMULARIO DE CAPTACIÓN (DETALLADO) -->
+            <div id="lead-form-container" class="glass p-8 rounded-3xl border-amber-500/30 overflow-hidden relative">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 rounded-full blur-3xl"></div>
+                <h4 class="text-xl font-display font-bold text-white mb-4 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                        </path>
+                    </svg>
+                    Recibir Presupuesto Detallado (PDF)
+                </h4>
+                <p class="text-xs text-slate-400 mb-6">Ingresa tus datos para enviarte el desglose técnico completo y
+                    una comparativa de materiales a tu correo.</p>
+
+                <form id="budgetLeadForm" class="grid md:grid-cols-3 gap-4">
+                    <input type="text" name="nombre" placeholder="Tu Nombre" required
+                        class="bg-slate-800 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 transition">
+                    <input type="email" name="email" placeholder="Email" required
+                        class="bg-slate-800 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 transition">
+                    <button type="submit" id="btn-budget-send"
+                        class="terra-gradient text-white font-bold py-3 rounded-xl hover:shadow-lg hover:shadow-amber-600/20 transition uppercase text-xs tracking-widest">
+                        Enviar Presupuesto
+                    </button>
+                </form>
+                <p id="lead-status" class="hidden text-[10px] mt-4 text-emerald-400 font-bold uppercase text-center">
+                </p>
+            </div>
+
+            <!-- CTA AUDITORÍA -->
+            <div
+                class="bg-gradient-to-r from-amber-600 to-amber-800 p-8 rounded-3xl shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden group">
+                <div
+                    class="absolute -left-10 -bottom-10 w-40 h-40 bg-white/10 rounded-full blur-3xl animate-pulse-soft">
+                </div>
+                <div class="relative z-10">
+                    <h4 class="text-2xl font-display font-bold text-white mb-2">¿Necesitas una Auditoría Real?</h4>
+                    <p class="text-amber-100/80 text-sm max-w-md">No dejes que tu presupuesto se escape de las manos.
+                        Agenda hoy y validamos la viabilidad financiera de tu proyecto.</p>
+                </div>
+                <div class="relative z-10 w-full md:w-auto">
+                    <button onclick="window.location.href='index.html#contacto'"
+                        class="w-full bg-white text-amber-600 px-8 py-4 rounded-xl font-bold hover:bg-amber-50 transition-colors shadow-xl shadow-black/20">
+                        Agenda Asesoría Etapa 0
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer
+        class="max-w-7xl mx-auto px-6 py-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-slate-500 gap-4">
+        <p class="text-xs font-medium uppercase tracking-widest">PARDE ARQUITECTOS &copy; 2024 - SmartBudget Engine v1.0
+        </p>
+        <div class="flex gap-6">
+            <span class="text-[10px] font-bold uppercase tracking-tighter">Precisión Estimada: +/- 15%</span>
+            <span class="text-[10px] font-bold uppercase tracking-tighter">UF a $37.000 CLP (Aprox)</span>
+        </div>
+    </footer>
+
+    <script>
+        const rates = {
+            economic: 22,
+            standard: 35,
+            premium: 55,
+            luxury: 75
+        };
+
+        const percentage = {
+            og: 0.40,
+            term: 0.35,
+            inst: 0.15,
+            fees: 0.10
+        };
+
+        let currentStandard = 'standard';
+        let currentArea = 120;
+        let factorExtra = 1;
+        const VALOR_UF = 37000; // Valor aproximado para el cálculo en CLP
+
+        function setStandard(std) {
+            currentStandard = std;
+
+            // UI Update
+            document.querySelectorAll('.std-btn').forEach(btn => {
+                btn.classList.add('glass');
+                btn.classList.remove('terra-gradient', 'text-white', 'shadow-lg', 'shadow-amber-600/20', 'border-transparent');
+            });
+
+            const activeBtn = document.getElementById(`btn-${std}`);
+            activeBtn.classList.remove('glass');
+            activeBtn.classList.add('terra-gradient', 'text-white', 'shadow-lg', 'shadow-amber-600/20', 'border-transparent');
+
+            updateCalculations();
+        }
+
+        function updateCalculations() {
+            const baseRate = rates[currentStandard];
+            const finalRate = baseRate * factorExtra;
+            const totalUf = Math.round(currentArea * finalRate);
+
+            // Top Metrics
+            document.getElementById('total-uf').innerText = totalUf.toLocaleString('es-CL');
+            document.getElementById('total-clp').innerText = ((totalUf * VALOR_UF) / 1000000).toFixed(1);
+            document.getElementById('val-m2').innerText = finalRate.toFixed(1);
+
+            // Itemized
+            const og = Math.round(totalUf * percentage.og);
+            const term = Math.round(totalUf * percentage.term);
+            const inst = Math.round(totalUf * percentage.inst);
+            const fees = totalUf - og - term - inst;
+
+            document.getElementById('og-uf').innerText = `${og.toLocaleString('es-CL')} UF`;
+            document.getElementById('term-uf').innerText = `${term.toLocaleString('es-CL')} UF`;
+            document.getElementById('inst-uf').innerText = `${inst.toLocaleString('es-CL')} UF`;
+            document.getElementById('fees-uf').innerText = `${fees.toLocaleString('es-CL')} UF`;
+
+            // Bars
+            document.getElementById('og-bar').style.width = '40%';
+            document.getElementById('term-bar').style.width = '35%';
+            document.getElementById('inst-bar').style.width = '15%';
+            document.getElementById('fees-bar').style.width = '10%';
+        }
+
+        // Event Listeners
+        document.getElementById('input-area').addEventListener('input', (e) => {
+            currentArea = e.target.value;
+            document.getElementById('area-val').innerText = currentArea;
+            updateCalculations();
+        });
+
+        document.getElementById('factor-extra').addEventListener('change', (e) => {
+            factorExtra = parseFloat(e.target.value);
+            updateCalculations();
+        });
+
+        // FORMULARIO DE CAPTACIÓN LOGIC
+        const budgetForm = document.getElementById('budgetLeadForm');
+        const budgetBtn = document.getElementById('btn-budget-send');
+        const budgetStatus = document.getElementById('lead-status');
+
+        if (budgetForm) {
+            budgetForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const originalText = budgetBtn.innerText;
+                budgetBtn.innerText = 'PROCESANDO...';
+                budgetBtn.disabled = true;
+
+                // Capturamos datos del form + datos de la calculadora
+                const formData = new FormData(budgetForm);
+                const leadData = {
+                    type: 'calculator_lead',
+                    nombre: formData.get('nombre'),
+                    email: formData.get('email'),
+                    calculo: {
+                        m2: currentArea,
+                        estandar: currentStandard,
+                        total_uf: document.getElementById('total-uf').innerText,
+                        total_clp: document.getElementById('total-clp').innerText + " Millones"
+                    }
+                };
+
+                // Enviamos a Make (esta función viene de main.js)
+                const result = await sendLeadToMake(leadData);
+
+                if (result.success) {
+                    budgetStatus.innerText = "¡LISTO! REVISA TU CORREO EN 5 MINUTOS.";
+                    budgetStatus.classList.remove('hidden');
+                    budgetForm.reset();
+                    setTimeout(() => {
+                        budgetBtn.innerText = originalText;
+                        budgetBtn.disabled = false;
+                        budgetStatus.classList.add('hidden');
+                    }, 5000);
+                } else {
+                    budgetBtn.innerText = 'ERROR EN ENVÍO';
+                    setTimeout(() => {
+                        budgetBtn.innerText = originalText;
+                        budgetBtn.disabled = false;
+                    }, 3000);
+                }
+            });
+        }
+
+        // Init
+        updateCalculations();
+    </script>
+    <!-- Incluimos main.js para la lógica de automatización -->
+    <script src="main.js"></script>
+</body>
+
+</html>
