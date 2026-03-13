@@ -73,4 +73,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // WhatsApp Menu Toggle & Outside Click
+    const waMenu = document.getElementById('waMenu');
+    if (waMenu) {
+        document.addEventListener('click', (e) => {
+            const isClickInside = waMenu.contains(e.target);
+            if (!isClickInside) {
+                waMenu.classList.remove('active');
+            }
+        });
+    }
 });

@@ -413,62 +413,95 @@ select:focus {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
-/* WhatsApp Floating Button */
-.whatsapp-float {
+/* Multi-Contact WhatsApp Floating Button */
+.whatsapp-menu {
     position: fixed;
-    width: 60px;
-    height: 60px;
     bottom: 40px;
     right: 40px;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1rem;
+    pointer-events: none;
+}
+
+.whatsapp-menu.active {
+    pointer-events: all;
+}
+
+.whatsapp-main-btn {
+    width: 60px;
+    height: 60px;
     background-color: #25d366;
-    color: #FFF;
-    border-radius: 50px;
-    text-align: center;
-    font-size: 30px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    z-index: 1000;
+    color: white;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 2001;
+    pointer-events: all;
+}
+
+.whatsapp-main-btn:hover {
+    transform: scale(1.1);
+    background-color: #128c7e;
+}
+
+.whatsapp-main-btn.active svg {
+    transform: rotate(45deg);
+}
+
+.whatsapp-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
     opacity: 0;
-    /* Starts hidden, revealed via JS/Reveal class */
-    transform: translateY(20px);
+    transform: translateY(20px) scale(0.8);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    visibility: hidden;
 }
 
-.whatsapp-float.visible {
+.whatsapp-menu.active .whatsapp-options {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
+    visibility: visible;
 }
 
-.whatsapp-float:hover {
-    background-color: #128C7E;
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+.whatsapp-option {
+    background: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 100px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: var(--brand-gray);
+    font-weight: 600;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    border: 1px solid #f3f4f6;
+}
+
+.whatsapp-option:hover {
+    transform: translateX(-5px);
+    background: var(--bg-soft);
+    border-color: #25d366;
+}
+
+.whatsapp-option .wa-icon {
+    width: 24px;
+    height: 24px;
+    fill: #25d366;
 }
 
 @media (max-width: 768px) {
-
-    .contact-layout,
-    .methodology-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .hero-title {
-        font-size: 3rem;
-    }
-
-    .image-placeholder-large {
-        height: 400px;
-    }
-
-    .portfolio-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .whatsapp-float {
-        width: 50px;
-        height: 50px;
+    .whatsapp-menu {
         bottom: 20px;
         right: 20px;
     }
